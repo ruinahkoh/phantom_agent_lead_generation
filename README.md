@@ -16,11 +16,10 @@ a series of actions to find and develop leads based on chat-based interactions w
 4) The user keys in the required inputs for each phantom to execute the phantom
 5) All inputs have to be keyed in before a mock execution of phantom workflow (tools)
 
-## Assumptions
+### Assumptions
 - The workflow will follow a structure: search → enrich → find contact → outreach.
-- The agent will come up with a plan
 
-## Experiments done
+### Experiments done
 - First iteration: The current node is a “one-shot planner.” LLM sees the phantoms, emits a JSON list of IDs.
 - Second iteration:The planning node can be replaced with a reAct agent. 
 
