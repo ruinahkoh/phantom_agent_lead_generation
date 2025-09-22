@@ -29,8 +29,8 @@ class PhantomAgent:
         self.llm = ChatOpenAI(openai_api_key=OPENAI_API_KEY, model=model_name, temperature=0)
         self.graph = self._build_graph()
         self.agent = self.graph.compile(checkpointer=checkpointer)
-        dot = self.agent.get_graph()
-        print(dot.draw_mermaid() )
+        # dot = self.agent.get_graph()
+        # print(dot.draw_mermaid() )
         self.phantom_lookup = {phantom["id"]: phantom for phantom in phantoms}
 
     # --- Extract goal from messages list ---
@@ -114,7 +114,7 @@ class PhantomAgent:
 
         # ✅ Now create the agent properly
         agent = create_react_agent(llm=self.llm, tools=tools, prompt=prompt)
-        agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
+        agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True, handle_parsing_errors=True)
 
         # Run the agent
         result = agent_executor.invoke({"input": goal})

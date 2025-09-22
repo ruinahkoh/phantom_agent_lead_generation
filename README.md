@@ -24,7 +24,7 @@ a series of actions to find and develop leads based on chat-based interactions w
 
 ### Experiments done
 - First iteration: The current node is a “one-shot planner.” LLM sees the phantoms, emits a JSON list of IDs.
-- Second iteration:The planning node can be replaced with a reAct agent. 
+- Second iteration:The planning node was replaced with a reAct agent. 
 
 With a ReAct agent we have an interactive reasoning loop. 
 The LLM can iteratively propose:
