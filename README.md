@@ -16,6 +16,9 @@ a series of actions to find and develop leads based on chat-based interactions w
 4) The user keys in the required inputs for each phantom to execute the phantom
 5) All inputs have to be keyed in before a mock execution of phantom workflow (tools)
 
+![graph](https://github.com/ruinahkoh/phantom_agent_lead_generation/blob/main/graph.png)
+
+
 ### Assumptions
 - The workflow will follow a structure: search → enrich → find contact → outreach.
 
