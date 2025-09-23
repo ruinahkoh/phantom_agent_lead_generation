@@ -1,3 +1,7 @@
+## Abstract
+This repo contains a prototype of an agentic AI system for PhantomBuster. The agent takes a lead generation goal from the user, plans a workflow of phantoms, and simulates their execution in a controlled, human-in-the-loop process. This shows how we can move toward autonomous yet controllable lead generation workflows.
+
+
 ## Context
 You just joined PhantomBuster, and the Product team needs your help developing an agentic AI
 system to run lead generation efforts for our customers. The engineers already know how to use
@@ -10,8 +14,9 @@ plan actions and simulate the execution of phantoms. This prototype should be ab
 a series of actions to find and develop leads based on chat-based interactions with a user.
 
 ## Overview
-This prototype demonstrates an agentic AI system that can reason about a user’s lead generation goal, plan a workflow of PhantomBuster tools, and simulate execution in a human-in-the-loop flow. It shows how LangGraph can orchestrate phantoms step by step using a ReAct-style agent, moving us toward autonomous yet controllable workflows for our customers
+The agent is implemented using LangGraph and a ReAct-style reasoning loop. The streamlit interface allows the user to enter a goal which is passed to the agent. Next it searches a FAISS index of available phantoms, proposes workflows via tool calls (search_phantoms, add_to_plan, finish_plan), and executes a mock run once the user approves. This design balances autonomy with safety and interpretability.
 
+![interface](https://github.com/ruinahkoh/phantom_agent_lead_generation/blob/main/UI.png)
 
 ## Workflow
 1) User inputs the goal
@@ -26,12 +31,12 @@ This prototype demonstrates an agentic AI system that can reason about a user’
 
 ## Key Features
 Explicitly call out what works today (so it’s easy to demo):
-- Chat interface to capture user goals (Streamlit)
-- Vector search over phantoms (FAISS)
-- ReAct planning agent (search_phantoms → add_to_plan → finish_plan)
-- Human approval step before execution
-- Input collection + mock phantom execution
-- Logging of execution results
+- Simple UI: Chat interface to capture user goals (Streamlit)
+- Relevant phantom selection: Vector search over phantoms (FAISS)
+- Goal-driven planning: ReAct planning agent (search_phantoms → add_to_plan → finish_plan)
+- Interactive approval: Human approval step before execution
+- Flexible execution: Input collection + mock phantom execution
+- Traceability: Logging of execution results
 
 ## Assumptions
 - User has knowledge of PhantomBuster phantoms.
@@ -42,13 +47,12 @@ Explicitly call out what works today (so it’s easy to demo):
 
 ## Experiments done
 Iteration 1: One shot planner 
-    - The current node is a “one-shot planner.”
-    - Search for phantoms according to goal, add the phantoms to the LLM context LLM idenfies phantoms to output a JSON list of IDs.
+    - Behavior: A “one-shot planner” that search for phantoms according to goal, add the phantoms to the LLM context, then the LLM identifies phantoms to output a JSON list of IDs.
     - Limitation: brittle, no interactive reasoning
 
 
 Iteration 2: ReAct agent
-    - LLM reasons step by step, calls tools (search_phantoms, add_to_plan, finish_plan).
+    - Behavior: LLM reasons step by step, calls tools (search_phantoms, add_to_plan, finish_plan).
     - Benefit: more controllable, reduces hallucination, mirrors LangGraph execution model.
 
 **Chose the second iteration to add the interactive reasoning loop**
@@ -116,3 +120,12 @@ Evaluation:
 3. Set up a virtual environment and install requirements.txt
 `pip install -r requirements.txt`
 4. Run the application `streamlit run app.py`
+
+## How to use
+1. Run the app:
+   streamlit run app.py
+2. Enter a goal (e.g. "Find 50 SaaS marketing managers in Berlin")
+3. Click on Generate plan
+4. Review the proposed workflow and approve plan or regenerate plan
+5. Provide required inputs for each phantom
+6. Run mock execution and inspect logs
