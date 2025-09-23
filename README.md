@@ -1,4 +1,4 @@
-![interface](https://github.com/ruinahkoh/phantom_agent_lead_generation/blob/main/.png)
+![interface](https://github.com/ruinahkoh/phantom_agent_lead_generation/blob/main/UI.png)
 
 ## Abstract
 This repo contains a prototype of an agentic AI system for PhantomBuster. The agent takes a lead generation goal from the user, plans a workflow of phantoms, and simulates their execution in a controlled, human-in-the-loop process. This shows how we can move toward autonomous yet controllable lead generation workflows.
