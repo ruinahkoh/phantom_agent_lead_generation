@@ -1,3 +1,5 @@
+![interface](https://github.com/ruinahkoh/phantom_agent_lead_generation/blob/main/.png)
+
 ## Abstract
 This repo contains a prototype of an agentic AI system for PhantomBuster. The agent takes a lead generation goal from the user, plans a workflow of phantoms, and simulates their execution in a controlled, human-in-the-loop process. This shows how we can move toward autonomous yet controllable lead generation workflows.
 
@@ -15,8 +17,6 @@ a series of actions to find and develop leads based on chat-based interactions w
 
 ## Overview
 The agent is implemented using LangGraph and a ReAct-style reasoning loop. The streamlit interface allows the user to enter a goal which is passed to the agent. Next it searches a FAISS index of available phantoms, proposes workflows via tool calls (search_phantoms, add_to_plan, finish_plan), and executes a mock run once the user approves. This design balances autonomy with safety and interpretability.
-
-![interface](https://github.com/ruinahkoh/phantom_agent_lead_generation/blob/main/UI.png)
 
 ## Workflow
 1) User inputs the goal
