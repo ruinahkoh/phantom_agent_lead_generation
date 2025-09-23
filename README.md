@@ -1,19 +1,19 @@
-### Context
+## Context
 You just joined PhantomBuster, and the Product team needs your help developing an agentic AI
 system to run lead generation efforts for our customers. The engineers already know how to use
 our API to run phantoms, but they need help handling the reasoning and execution of actions
 based on a user's goal.
 
-### Mission
+## Mission
 Design and implement a prototype of an AI agent that can autonomously reason about a goal,
 plan actions and simulate the execution of phantoms. This prototype should be able to perform
 a series of actions to find and develop leads based on chat-based interactions with a user.
 
-### Overview
+## Overview
 This prototype demonstrates an agentic AI system that can reason about a user’s lead generation goal, plan a workflow of PhantomBuster tools, and simulate execution in a human-in-the-loop flow. It shows how LangGraph can orchestrate phantoms step by step using a ReAct-style agent, moving us toward autonomous yet controllable workflows for our customers
 
 
-### Workflow
+## Workflow
 1) User inputs the goal
 2) The reasoning and acting agent plans the workflow based on the goal and is able to call tools [search_phantoms,add_to_plan,finish_plan]
 3) The user approves the plan or regenerates(start from step 1)
@@ -24,7 +24,7 @@ This prototype demonstrates an agentic AI system that can reason about a user’
 ![graph](https://github.com/ruinahkoh/phantom_agent_lead_generation/blob/main/graph.png)
 
 
-### Key Features
+## Key Features
 Explicitly call out what works today (so it’s easy to demo):
 - Chat interface to capture user goals (Streamlit)
 - Vector search over phantoms (FAISS)
@@ -33,14 +33,14 @@ Explicitly call out what works today (so it’s easy to demo):
 - Input collection + mock phantom execution
 - Logging of execution results
 
-### Assumptions
+## Assumptions
 - User has knowledge of PhantomBuster phantoms.
 - Execution is simulated (mock run, not actual API calls).
 - Input format for add_to_plan is phantom_id | rationale.
 - Only a subset of workflows tested (lead gen via LinkedIn).
 
 
-### Experiments done
+## Experiments done
 Iteration 1: One shot planner 
     - The current node is a “one-shot planner.”
     - Search for phantoms according to goal, add the phantoms to the LLM context LLM idenfies phantoms to output a JSON list of IDs.
@@ -79,7 +79,7 @@ Action Input: Lead generation workflow with LinkedIn Search to Outreach.js for s
 This allows the agent to build the workflow step by step. This would also mean that the phantom_search would be provided as a tool for the agent to call
 
 
-### Future considerations
+## Future considerations
 Prompt & Workflow Logic: 
 - optimize prompts to enforce logical order while allowing single-step workflows.
 
@@ -107,7 +107,7 @@ Guardrails:
 Evaluation: 
 - Arize AI for tool-call accuracy, LLM as a judge, and search relevance scoring
 
-### Quickstart
+## Quickstart
 1. Clone repository
 2. Add a .env file and define your `OPENAI_API_KEY`
 3. Set up a virtual environment and install requirements.txt
