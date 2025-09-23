@@ -81,10 +81,10 @@ This allows the agent to build the workflow step by step. This would also mean t
 
 ## Future considerations
 Prompt & Workflow Logic: 
-- optimize prompts to enforce logical order while allowing single-step workflows.
+- optimize prompts to enforce logical order while allowing single-step workflows
 
 Model Choices: 
-- explore fine-tuning smaller models (SLMs) for planning.
+- explore fine-tuning smaller models (SLMs) for planning
    
     -Agent planning could be done by an SLM fine-tuned to create workflows with phantoms. example: (system_prompt, user_prompt, assistant) 
     ```
@@ -98,8 +98,11 @@ Model Choices:
     ```
 - SLMs are less prone to hallucinations as compared to LLMs, they are more likely to admit that they do not know
 
+User Interface:
+- current UI is simple (streamlit) perhaps a more complex UI with authentication is required for production
+
 Observability: 
-- integrate LangSmith for trace logging and evaluation.
+- integrate LangSmith for trace logging and evaluation
 
 Guardrails:
 - for jailbreak or reducing the risk of hallucinations
