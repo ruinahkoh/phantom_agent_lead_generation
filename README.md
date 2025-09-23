@@ -9,6 +9,10 @@ Design and implement a prototype of an AI agent that can autonomously reason abo
 plan actions and simulate the execution of phantoms. This prototype should be able to perform
 a series of actions to find and develop leads based on chat-based interactions with a user.
 
+### Overview
+This prototype demonstrates an agentic AI system that can reason about a user’s lead generation goal, plan a workflow of PhantomBuster tools, and simulate execution in a human-in-the-loop flow. It shows how LangGraph can orchestrate phantoms step by step using a ReAct-style agent, moving us toward autonomous yet controllable workflows for our customers
+
+
 ### Workflow
 1) User inputs the goal
 2) The reasoning and acting agent plans the workflow based on the goal and is able to call tools [search_phantoms,add_to_plan,finish_plan]
@@ -16,18 +20,39 @@ a series of actions to find and develop leads based on chat-based interactions w
 4) The user keys in the required inputs for each phantom to execute the phantom
 5) All inputs have to be keyed in before a mock execution of phantom workflow (tools)
 
+The following graph shows the nodes and transitions in the planning/execution loop:
 ![graph](https://github.com/ruinahkoh/phantom_agent_lead_generation/blob/main/graph.png)
 
 
+### Key Features
+Explicitly call out what works today (so it’s easy to demo):
+- Chat interface to capture user goals (Streamlit)
+- Vector search over phantoms (FAISS)
+- ReAct planning agent (search_phantoms → add_to_plan → finish_plan)
+- Human approval step before execution
+- Input collection + mock phantom execution
+- Logging of execution results
+
 ### Assumptions
-- The workflow will follow a structure: search → enrich → find contact → outreach.
-- If 
+- User has knowledge of PhantomBuster phantoms.
+- Execution is simulated (mock run, not actual API calls).
+- Input format for add_to_plan is phantom_id | rationale.
+- Only a subset of workflows tested (lead gen via LinkedIn).
+
 
 ### Experiments done
-- First iteration: The current node is a “one-shot planner.” LLM sees the phantoms, emits a JSON list of IDs.
-- Second iteration:The planning node was replaced with a reAct agent. 
+Iteration 1: One shot planner 
+    - The current node is a “one-shot planner.”
+    - Search for phantoms according to goal, add the phantoms to the LLM context LLM idenfies phantoms to output a JSON list of IDs.
+    - Limitation: brittle, no interactive reasoning
 
-With a ReAct agent we have an interactive reasoning loop. 
+
+Iteration 2: ReAct agent
+    - LLM reasons step by step, calls tools (search_phantoms, add_to_plan, finish_plan).
+    - Benefit: more controllable, reduces hallucination, mirrors LangGraph execution model.
+
+*We chose the second iteration to add the interactive reasoning loop*
+ 
 The LLM can iteratively propose:
 
 “I need to find a search tool.”
@@ -55,8 +80,12 @@ This allows the agent to build the workflow step by step. This would also mean t
 
 
 ### Future considerations
-- Business logic required for building workflows:
-    -Prompt Optimization to incorporate workflow logic
+Prompt & Workflow Logic: 
+- optimize prompts to enforce logical order while allowing single-step workflows.
+
+Model Choices: 
+- explore fine-tuning smaller models (SLMs) for planning.
+   
     -Agent planning could be done by an SLM fine-tuned to create workflows with phantoms. example: (system_prompt, user_prompt, assistant) 
     ```
     {
@@ -67,8 +96,20 @@ This allows the agent to build the workflow step by step. This would also mean t
      ]
     }
     ```
-        -SLMs are less prone to hallucinations as compared to LLMs, they are more likely to admit that they do not know
-    -Or a Validator node in the graph to check the plans produced
-- Langsmith for tracking prompts
-- Guardrails for jailbreak or reducing the risk of hallucinations
-- Evaluation mechanisms Arize AI (LLM tool calls, search relevance)
+    -SLMs are less prone to hallucinations as compared to LLMs, they are more likely to admit that they do not know
+
+Observability: 
+    - integrate LangSmith for trace logging and evaluation.
+
+Guardrails:
+    - for jailbreak or reducing the risk of hallucinations
+
+Evaluation: 
+    - Arize AI for tool-call accuracy, LLM as a judge, and search relevance scoring
+
+### Quickstart
+1. Clone repository
+2. Add a .env file and define your `OPENAI_API_KEY`
+3. Set up a virtual environment and install requirements.txt
+`pip install -r requirements.txt`
+4. Run the application `streamlit run app.py`

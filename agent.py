@@ -71,6 +71,11 @@ class PhantomAgent:
             except ValueError:
                 return "Error: Please provide input in the format 'phantom_id | rationale'"
 
+           
+
+            if any(step["id"] == phantom_id for step in plan):
+                return f"Phantom {phantom_id} is already in the plan. Skipping duplicate."
+
             ph = next((p for p in self.phantoms if p["id"] == phantom_id), None)
             if not ph:
                 return f"Phantom {phantom_id} not found."
@@ -105,7 +110,6 @@ class PhantomAgent:
                 "- The typical workflow is: search → enrich → find contact → outreach.\n"
                 "- BUT: only include steps that are needed for the goal.\n"
                 "- If a single phantom is enough, just add it and finish.\n"
-                "- If two steps are enough, add those and finish.\n"
                 "- Always keep the order logical (e.g., don’t do outreach before search).\n"
                 "- Never invent phantom IDs; use only from the provided list.\n"
                 "- When the workflow is complete, call finish_plan.\n"
