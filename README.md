@@ -96,7 +96,7 @@ Model Choices:
      ]
     }
     ```
--SLMs are less prone to hallucinations as compared to LLMs, they are more likely to admit that they do not know
+- SLMs are less prone to hallucinations as compared to LLMs, they are more likely to admit that they do not know
 
 Observability: 
 - integrate LangSmith for trace logging and evaluation.
