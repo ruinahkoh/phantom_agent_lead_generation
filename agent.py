@@ -251,17 +251,4 @@ class PhantomAgent:
         )
 
 
-if __name__ == "__main__":
-    print("Welcome to the LangGraph PhantomBuster Agent (GPT-based).")
-    # user_input = input("Enter your lead generation goal: ")
-    agent = PhantomAgent(checkpointer=memory)
-
-
-
-
-    # initial_messages = [{"role": "user", "content": user_input}]
-    # result = agent.run(initial_messages)
-    # print("\nAgent finished. Result:", result)
-
-
 
