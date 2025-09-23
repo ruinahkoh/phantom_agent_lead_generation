@@ -20,7 +20,7 @@ This prototype demonstrates an agentic AI system that can reason about a user’
 4) The user keys in the required inputs for each phantom to execute the phantom
 5) All inputs have to be keyed in before a mock execution of phantom workflow (tools)
 
-The following graph shows the nodes and transitions in the planning/execution loop:
+**The following graph shows the nodes and transitions in the planning/execution loop:**
 ![graph](https://github.com/ruinahkoh/phantom_agent_lead_generation/blob/main/graph.png)
 
 
@@ -51,7 +51,7 @@ Iteration 2: ReAct agent
     - LLM reasons step by step, calls tools (search_phantoms, add_to_plan, finish_plan).
     - Benefit: more controllable, reduces hallucination, mirrors LangGraph execution model.
 
-*We chose the second iteration to add the interactive reasoning loop*
+**Chose the second iteration to add the interactive reasoning loop**
  
 The LLM can iteratively propose:
 
@@ -96,16 +96,16 @@ Model Choices:
      ]
     }
     ```
-    -SLMs are less prone to hallucinations as compared to LLMs, they are more likely to admit that they do not know
+-SLMs are less prone to hallucinations as compared to LLMs, they are more likely to admit that they do not know
 
 Observability: 
-    - integrate LangSmith for trace logging and evaluation.
+- integrate LangSmith for trace logging and evaluation.
 
 Guardrails:
-    - for jailbreak or reducing the risk of hallucinations
+- for jailbreak or reducing the risk of hallucinations
 
 Evaluation: 
-    - Arize AI for tool-call accuracy, LLM as a judge, and search relevance scoring
+- Arize AI for tool-call accuracy, LLM as a judge, and search relevance scoring
 
 ### Quickstart
 1. Clone repository
