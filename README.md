@@ -21,6 +21,7 @@ a series of actions to find and develop leads based on chat-based interactions w
 
 ### Assumptions
 - The workflow will follow a structure: search → enrich → find contact → outreach.
+- If 
 
 ### Experiments done
 - First iteration: The current node is a “one-shot planner.” LLM sees the phantoms, emits a JSON list of IDs.
@@ -33,12 +34,41 @@ The LLM can iteratively propose:
 Then call a search_phantoms tool.
 Then “I should enrich the profiles” → call search_phantoms again with enrich.
 
+```
+Action: search_phantoms  
+Action Input: outreach
+LinkedIn Post Engagers to Lead Outreach.js: Start conversations with people who liked or commented on your company page or profile posts.
+LinkedIn Group Members to Outreach.js: Reach out to new LinkedIn group members who are curious about what you do.
+LinkedIn Outreach.js: Create a full LinkedIn outreach strategy with connection request, introduction message, and up to three follow up messages. This Phantom covers all your LinkedIn Outreach needs in one place.
+LinkedIn Search to Outreach.js: Start conversations with leads sourced from a LinkedIn or Sales Navigator search.
+HubSpot Contact LinkedIn Outreach.js: Run an outreach campaign on LinkedIn and log the activity in HubSpotThought: The "LinkedIn Outreach.js" phantom looks like a comprehensive outreach tool that covers connection requests, introduction messages, and follow-ups on LinkedIn. It fits well as the outreach step after finding contacts.
+
+Action: add_to_plan  
+Action Input: LinkedIn Outreach.js | Use this phantom to perform LinkedIn outreach including connection requests, introduction messages, and follow-ups.
+Added LinkedIn Outreach.js to plan.Thought: I have added phantoms for all four steps in the lead generation workflow in the correct order: search, enrich, find contact, and outreach. Now I will finish the plan.
+
+Action: finish_plan  
+Action Input: Lead generation workflow with LinkedIn Search to Outreach.js for searching leads, AI LinkedIn Profile Enricher.js for enriching data, Professional Email Finder.js for finding contacts, and LinkedIn Outreach.js for outreach.
+```
+
 This allows the agent to build the workflow step by step. This would also mean that the phantom_search would be provided as a tool for the agent to call
 
 
 ### Future considerations
-- Agent planning could be done by an SLM fine-tuned to create workflows with phantoms. example: (User goal, reasoning, phantoms_identified) 
-- Or it can search for pre-created workflows in a vector database right away.
+- Business logic required for building workflows:
+    -Prompt Optimization to incorporate workflow logic
+    -Agent planning could be done by an SLM fine-tuned to create workflows with phantoms. example: (system_prompt, user_prompt, assistant) 
+    ```
+    {
+  "messages": [
+    {"role": "system", "content": "You are an AI planner for PhantomBuster workflows."},
+    {"role": "user", "content": "Find 50 SaaS marketing managers in Berlin and prepare outreach sequence."},
+    {"role": "assistant", "content": "Thought: I should search for a LinkedIn search tool.\nAction: search_phantoms[\"linkedin search\"]\nObservation: linkedin-search-export: ...\nThought: Add linkedin-search-export to plan.\nAction: add_to_plan[\"linkedin-search-export | Search for SaaS marketing managers in Berlin\"]\nObservation: Added linkedin-search-export to plan.\n..."}
+     ]
+    }
+    ```
+        -SLMs are less prone to hallucinations as compared to LLMs, they are more likely to admit that they do not know
+    -Or a Validator node in the graph to check the plans produced
 - Langsmith for tracking prompts
-- Guardrails for jailbreak
+- Guardrails for jailbreak or reducing the risk of hallucinations
 - Evaluation mechanisms Arize AI (LLM tool calls, search relevance)
