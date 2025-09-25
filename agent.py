@@ -109,7 +109,6 @@ class PhantomAgent:
                 "- Search for the right phantom if you are not sure.\n"
                 "- The typical workflow is: search → enrich → find contact → outreach.\n"
                 "- BUT: only include steps that are needed for the goal.\n"
-                "- If a single phantom is enough, just add it and finish.\n"
                 "- Always keep the order logical (e.g., don’t do outreach before search).\n"
                 "- Never invent phantom IDs; use only from the provided list.\n"
                 "- When the workflow is complete, call finish_plan.\n"
