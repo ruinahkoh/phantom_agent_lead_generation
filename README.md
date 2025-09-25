@@ -30,7 +30,6 @@ The agent is implemented using LangGraph and a ReAct-style reasoning loop. The s
 
 
 ## Key Features
-Explicitly call out what works today (so it’s easy to demo):
 - Simple UI: Chat interface to capture user goals (Streamlit)
 - Relevant phantom selection: Vector search over phantoms (FAISS)
 - Goal-driven planning: ReAct planning agent (search_phantoms → add_to_plan → finish_plan)
