@@ -46,13 +46,13 @@ The agent is implemented using LangGraph and a ReAct-style reasoning loop. The s
 
 ## Experiments done
 Iteration 1: One shot planner 
-    - Behavior: A “one-shot planner” that search for phantoms according to goal, add the phantoms to the LLM context, then the LLM identifies phantoms to output a JSON list of IDs.
-    - Limitation: brittle, no interactive reasoning
+- Behavior: A “one-shot planner” that search for phantoms according to goal, add the phantoms to the LLM context, then the LLM identifies phantoms to output a JSON list of IDs.
+- Limitation: no interactive reasoning, relies on a single retrieval, LLM still free-forms the final answer and might ignore or misuse retrieved info.
 
 
 Iteration 2: ReAct agent
-    - Behavior: LLM reasons step by step, calls tools (search_phantoms, add_to_plan, finish_plan).
-    - Benefit: more controllable, reduces hallucination, mirrors LangGraph execution model.
+- Behavior: LLM reasons step by step, calls tools (search_phantoms, add_to_plan, finish_plan).
+- Benefit: Closer match to the requirements, constrain behavior to a toolset and keep reasoning explicit, reducing hallucination, mirroring LangGraph execution model.
 
 **Chose the second iteration to add the interactive reasoning loop**
  
@@ -104,14 +104,15 @@ Model Choices:
 User Interface:
 - current UI is simple (streamlit) perhaps a more complex UI with authentication is required for production
 
-Observability: 
-- integrate LangSmith for trace logging and evaluation
-
 Guardrails:
 - for jailbreak or reducing the risk of hallucinations
 
-Evaluation: 
+Observability & Evaluation: 
 - Arize AI for tool-call accuracy, LLM as a judge, and search relevance scoring
+
+Model Context Protocol
+- Allows AI agent to discover and execute phantoms. 
+
 
 ## Quickstart
 1. Clone repository
